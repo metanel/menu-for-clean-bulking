@@ -63,6 +63,91 @@
             animation: fadeInUp 0.8s ease-out;
         }
 
+        /* Calculator Section */
+        .calculator-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .calc-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .calc-form .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calc-form .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .calc-form label {
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .calc-form input, .calc-form select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .calc-btn {
+            grid-column: span 2;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .calc-btn:hover {
+            background-color: #303f9f;
+        }
+
+        .calc-results {
+            background-color: #e8eaf6;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-right: 4px solid var(--accent-color);
+        }
+
+        .calc-results h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .calc-results p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .calc-explanation {
+            font-size: 0.95rem !important;
+            color: #555;
+            margin-top: 15px !important;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #c5cae9;
+        }
+
         /* Jotform Embed Container */
         .form-wrapper {
             width: 100%;
@@ -77,17 +162,19 @@
         }
 
         /* Shopping List Table */
+        .shopping-list {
+            text-align: center;
+        }
+
         .shopping-list h2 {
             color: var(--primary-color);
             margin-bottom: 15px;
-            text-align: center;
             border-bottom: 3px solid var(--accent-color);
             padding-bottom: 10px;
             display: inline-block;
         }
 
         .shopping-list-desc {
-            text-align: center;
             margin-bottom: 20px;
             color: #666;
             font-size: 0.95rem;
@@ -158,6 +245,9 @@
         @media (max-width: 600px) {
             header h1 { font-size: 2rem; }
             .card { padding: 20px; }
+            .calc-form { grid-template-columns: 1fr; }
+            .calc-form .form-group.full-width { grid-column: span 1; }
+            .calc-btn { grid-column: span 1; }
             th, td { padding: 10px; font-size: 0.9rem; }
         }
     </style>
@@ -170,6 +260,53 @@
     </header>
 
     <div class="container">
+        
+        <div class="card calculator-section" style="text-align: center;">
+            <h2>מחשבון נתונים אישיים</h2>
+            <div class="calc-form" style="text-align: right;">
+                <div class="form-group">
+                    <label>מין</label>
+                    <select id="calcGender">
+                        <option value="male">זכר</option>
+                        <option value="female">נקבה</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>גיל (שנים)</label>
+                    <input type="number" id="calcAge" min="15" max="120" value="25">
+                </div>
+                <div class="form-group">
+                    <label>גובה (ס"מ)</label>
+                    <input type="number" id="calcHeight" min="100" max="250" value="175">
+                </div>
+                <div class="form-group">
+                    <label>משקל (ק"ג)</label>
+                    <input type="number" id="calcWeight" min="30" max="300" value="70">
+                </div>
+                <div class="form-group full-width">
+                    <label>רמת פעילות גופנית יומיומית</label>
+                    <select id="calcActivity">
+                        <option value="1.2">אורח חיים יושבני (עבודה משרדית, ללא אימונים)</option>
+                        <option value="1.375">פעילות קלה (אימון 1-3 פעמים בשבוע)</option>
+                        <option value="1.55">פעילות בינונית (אימון 3-5 פעמים בשבוע)</option>
+                        <option value="1.725">פעילות עצימה (אימון יומי או עבודה פיזית)</option>
+                    </select>
+                </div>
+                <button id="calcBtn" class="calc-btn">חשב נתונים</button>
+            </div>
+
+            <div id="calcResults" class="calc-results" style="display: none; text-align: right;">
+                <h3>תוצאות החישוב:</h3>
+                <p><strong>BMI:</strong> <span id="resBMI"></span> (<span id="resBMICategory"></span>)</p>
+                <p><strong>הוצאה אנרגטית יומית (TDEE):</strong> <span id="resTDEE"></span> קלוריות</p>
+                <div class="calc-explanation">
+                    המספר המוצג מעלה (קלוריות) מציין את כמות האנרגיה שגופך שורף ביום בממוצע, על מנת לשמור על מצבך הקיים בדיוק כפי שהוא כעת.<br><br>
+                    • במידה ותאכל <strong>מתחת</strong> למספר זה – תהיה במאזן קלורי <strong>שלילי</strong> (ירידה במשקל).<br>
+                    • במידה ותאכל <strong>מעל</strong> מספר זה – תהיה במאזן קלורי <strong>חיובי</strong> (עלייה במשקל / תהליך מסה).
+                </div>
+            </div>
+        </div>
+
         <div class="card">
             <div class="form-wrapper">
                 <iframe id="JotFormIFrame" onload="window.parent.scrollTo(0,0)" allowtransparency="true" allowfullscreen="true" allow="geolocation; microphone; camera" src="YOUR_JOTFORM_URL_HERE" frameborder="0" scrolling="no">
@@ -177,11 +314,11 @@
             </div>
         </div>
 
-        <div class="card shopping-list" style="text-align: center;">
+        <div class="card shopping-list">
             <h2>רשימת קניות והערכת מחירים משוערת</h2>
             <p class="shopping-list-desc">המחירים המופיעים מטה הם אומדן ממוצע המבוסס על רשתות שיווק מוזלות (כגון רמי לוי / אושר עד). המחירים עשויים להשתנות בהתאם למבצעים ולסניף.</p>
             
-            <input type="text" id="searchInput" class="search-box" placeholder="חיפוש מוצר...">
+            <input type="text" id="searchInput" class="search-box" placeholder="חיפוש מוצר (לדוגמה: חזה עוף)...">
 
             <div class="table-container">
                 <table>
@@ -276,6 +413,55 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            
+            /* --- קוד למחשבון BMI ו-TDEE --- */
+            const calcBtn = document.getElementById('calcBtn');
+            const calcResults = document.getElementById('calcResults');
+            const resBMI = document.getElementById('resBMI');
+            const resBMICategory = document.getElementById('resBMICategory');
+            const resTDEE = document.getElementById('resTDEE');
+
+            calcBtn.addEventListener('click', function() {
+                const gender = document.getElementById('calcGender').value;
+                const age = parseFloat(document.getElementById('calcAge').value);
+                const height = parseFloat(document.getElementById('calcHeight').value);
+                const weight = parseFloat(document.getElementById('calcWeight').value);
+                const activityMultiplier = parseFloat(document.getElementById('calcActivity').value);
+
+                if(!age || !height || !weight) {
+                    alert('נא למלא את כל השדות בצורה תקינה.');
+                    return;
+                }
+
+                // חישוב BMI
+                const heightInMeters = height / 100;
+                const bmi = weight / (heightInMeters * heightInMeters);
+                resBMI.textContent = bmi.toFixed(1);
+
+                // קטגוריות BMI
+                let category = "";
+                if(bmi < 18.5) category = "תת משקל";
+                else if(bmi >= 18.5 && bmi < 25) category = "משקל תקין";
+                else if(bmi >= 25 && bmi < 30) category = "עודף משקל";
+                else category = "השמנת יתר";
+                resBMICategory.textContent = category;
+
+                // חישוב BMR לפי נוסחת Mifflin-St Jeor
+                let bmr = 0;
+                if(gender === 'male') {
+                    bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+                } else {
+                    bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+                }
+
+                // חישוב TDEE
+                const tdee = bmr * activityMultiplier;
+                resTDEE.textContent = Math.round(tdee);
+
+                calcResults.style.display = 'block';
+            });
+
+            /* --- קוד לחיפוש אלפביתי ברשימת הקניות --- */
             const searchInput = document.getElementById('searchInput');
             const tbody = document.querySelector('.shopping-list tbody');
             const originalRows = Array.from(tbody.querySelectorAll('tr')); 
