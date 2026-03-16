@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תזונת מסה - תכנון יומי</title>
+    <style>
+        :root {
+            --primary-color: #2b3a42;
+            --accent-color: #3f51b5;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            animation: fadeInDown 0.8s ease-out;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.85;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: -30px auto 50px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Jotform Embed Container */
+        .form-wrapper {
+            width: 100%;
+            min-height: 800px;
+        }
+
+        .form-wrapper iframe {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: var(--border-radius);
+        }
+
+        /* Shopping List Table */
+        .shopping-list h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .shopping-list-desc {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: right;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+        }
+
+        .price {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .card { padding: 20px; }
+            th, td { padding: 10px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>תכנון תזונה - שלב מסה</h1>
+        <p>הזנת ארוחות, תזמון יומיומי וסנכרון ישיר ליומן</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <div class="form-wrapper">
+                <iframe id="JotFormIFrame" onload="window.parent.scrollTo(0,0)" allowtransparency="true" allowfullscreen="true" allow="geolocation; microphone; camera" src="YOUR_JOTFORM_URL_HERE" frameborder="0" scrolling="no">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="card shopping-list" style="text-align: center;">
+            <h2>רשימת קניות והערכת מחירים משוערת</h2>
+            <p class="shopping-list-desc">המחירים המופיעים מטה הם אומדן ממוצע המבוסס על רשתות שיווק מוזלות (כגון רמי לוי / אושר עד). המחירים עשויים להשתנות בהתאם למבצעים ולסניף.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>קטגוריה</th>
+                            <th>מוצר</th>
+                            <th>הערכת מחיר</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>חלבון (רזה)</td>
+                            <td>חזה עוף / פילה עוף (1 ק"ג, טרי)</td>
+                            <td class="price">30₪ - 40₪</td>
+                        </tr>
+                        <tr>
+                            <td>חלבון (רזה)</td>
+                            <td>כבד עוף טרי (1 ק"ג)</td>
+                            <td class="price">15₪ - 25₪</td>
+                        </tr>
+                        <tr>
+                            <td>חלבון (רזה)</td>
+                            <td>כתף בקר (1 ק"ג)</td>
+                            <td class="price">60₪ - 80₪</td>
+                        </tr>
+                        <tr>
+                            <td>חלבון (רזה)</td>
+                            <td>פסטרמה 3% ממעדניה (100 גרם)</td>
+                            <td class="price">8₪ - 12₪</td>
+                        </tr>
+                        <tr>
+                            <td>חלבון (שמן)</td>
+                            <td>פרגית / כרעיים עוף (1 ק"ג, טרי)</td>
+                            <td class="price">40₪ - 55₪</td>
+                        </tr>
+                        <tr>
+                            <td>חלבון (שמן)</td>
+                            <td>בשר טחון טרי (1 ק"ג)</td>
+                            <td class="price">40₪ - 60₪</td>
+                        </tr>
+                        <tr>
+                            <td>חלבון (דגים)</td>
+                            <td>פילה סלמון / דניס (1 ק"ג, קפוא/טרי)</td>
+                            <td class="price">80₪ - 120₪</td>
+                        </tr>
+                        <tr>
+                            <td>חלבון (דגים)</td>
+                            <td>טונה בשמן (מארז 4 קופסאות)</td>
+                            <td class="price">20₪ - 25₪</td>
+                        </tr>
+                        <tr>
+                            <td>פחמימה</td>
+                            <td>אורז לבן / אורז בסמטי (1 ק"ג)</td>
+                            <td class="price">8₪ - 14₪</td>
+                        </tr>
+                        <tr>
+                            <td>פחמימה</td>
+                            <td>פסטה (חבילה, 500 גרם)</td>
+                            <td class="price">5₪ - 8₪</td>
+                        </tr>
+                        <tr>
+                            <td>פחמימה</td>
+                            <td>שיבולת שועל (1 ק"ג)</td>
+                            <td class="price">10₪ - 15₪</td>
+                        </tr>
+                        <tr>
+                            <td>פחמימה</td>
+                            <td>תפוחי אדמה / בטטה (1 ק"ג)</td>
+                            <td class="price">4₪ - 9₪</td>
+                        </tr>
+                        <tr>
+                            <td>ירקות</td>
+                            <td>עגבנייה / מלפפון / בצל (1 ק"ג)</td>
+                            <td class="price">4₪ - 8₪</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
