@@ -278,12 +278,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchInput');
             const tbody = document.querySelector('.shopping-list tbody');
-            const originalRows = Array.from(tbody.querySelectorAll('tr')); // שמירת השורות במצבן המקורי
+            const originalRows = Array.from(tbody.querySelectorAll('tr')); 
 
             searchInput.addEventListener('input', function(e) {
                 const term = e.target.value.trim().toLowerCase();
 
-                // אם שדה החיפוש ריק, החזר את הטבלה למצב הקטגורי המקורי
                 if (term === '') {
                     tbody.innerHTML = '';
                     originalRows.forEach(row => {
@@ -297,31 +296,25 @@
                 let hiddenRows = [];
 
                 originalRows.forEach(row => {
-                    // אינדקס 1 מתייחס לעמודה השנייה ("מוצר")
                     const productCell = row.querySelectorAll('td')[1];
                     const productName = productCell.textContent.trim().toLowerCase();
 
-                    // בדיקה האם שם המוצר מתחיל בערך שחופש או מכיל אותו
-                    if (productName.includes(term)) {
+                    if (productName.startsWith(term)) {
                         visibleRows.push({ row: row, name: productName });
                     } else {
                         hiddenRows.push(row);
                     }
                 });
 
-                // מיון אלפביתי של השורות התואמות לחיפוש
                 visibleRows.sort((a, b) => a.name.localeCompare(b.name, 'he'));
 
-                // ריקון הטבלה והכנסת השורות מחדש
                 tbody.innerHTML = '';
 
-                // הוספת השורות הגלויות (ממוינות)
                 visibleRows.forEach(item => {
                     item.row.style.display = '';
                     tbody.appendChild(item.row);
                 });
 
-                // הוספת השורות המוסתרות (כדי לשמור עליהן ב-DOM)
                 hiddenRows.forEach(row => {
                     row.style.display = 'none';
                     tbody.appendChild(row);
